@@ -1,0 +1,58 @@
+# trunk-ignore-all(prettier)
+models:
+  - name: fct_bookings
+    description: Факты бронирований
+    docs:
+      show: true
+      node_color: red
+    latest_version: 1
+    versions:
+      - v: 1
+    config:
+      contract: {enforced: true}
+    meta:
+      owner: "myasin-ivan@mail.ru"
+      contact_tg: ivanm  
+      status: in_dev
+    columns:
+      - name: book_ref
+        data_type: varchar(8)
+        constraints:
+          - type: not_null
+      - name: book_date
+        data_type: timestamptz
+      - name: total_amount
+        data_type: numeric(10, 2) 
+        constraints:
+          - type: check
+            expression: "total_amount > 0"
+        tests:
+          - not_null
+        meta:
+          owner: finance_team
+        quote: false
+  - name: fct_ticket_flights
+    description: Факты билетов на самолеты
+    docs:
+      show: true
+      node_color: green
+    config:
+      contract: {enforced: true}
+    meta:
+      owner: "myasin-ivan@mail.ru"
+      contact_tg: ivanm  
+      status: in_dev
+    columns:
+      - name: ticket_no
+        data_type: bpchar(13)
+      - name: flight_id
+        data_type: int4
+        constraints:
+          - type: not_null
+      - name: fare_conditions
+        data_type: varchar(10)
+      - name: amount
+        data_type: numeric(10, 2)
+        constraints:
+          - type: check
+            expression: "amount > 0"
