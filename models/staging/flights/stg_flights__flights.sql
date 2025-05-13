@@ -1,6 +1,8 @@
 {{
   config(
-    materialized = 'table',
+    materialized = 'incremental',
+    incremental_stratagy = 'merge',
+    unique_key = ['flight_id', 'actual_departure']
     )
 }}
 select
@@ -16,4 +18,7 @@ select
   "actual_arrival"
 
 from {{ source('demo_src', 'flights') }}
-    
+{% if is_incremental() %}
+  WHERE 
+    scheduled_departure  < (SELECT MAX(scheduled_departure ) FROM {{ source('demo_src', 'flights') }}) - interval '100 day'
+{% endif %}  
