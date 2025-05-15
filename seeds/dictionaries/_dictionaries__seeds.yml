@@ -5,6 +5,7 @@ seeds:
       - name: city
         description: Город
         data_type: varchar(50)
+        updated_at: timestamp
         tests:
           - not_null
           - unique
