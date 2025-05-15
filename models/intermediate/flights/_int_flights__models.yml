@@ -10,10 +10,11 @@ models:
       - v: 1
     config:
       contract: {enforced: true}
-    meta:
-      owner: "myasin-ivan@mail.ru"
-      contact_tg: ivanm  
-      status: in_dev
+      meta:
+        owner: "myasin-ivan@mail.ru"
+        contact_tg: ivanm  
+        status: in_dev
+    
     columns:
       - name: book_ref
         data_type: varchar(8)
@@ -26,8 +27,10 @@ models:
         constraints:
           - type: check
             expression: "total_amount > 0"
-        tests:
-          - not_null
+        tags:
+          - "fact"
+          - "flights"
+        tests: [not_null, unique]
         meta:
           owner: finance_team
         quote: false
