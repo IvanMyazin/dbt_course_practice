@@ -1,13 +1,11 @@
 {{
   config(
     materialized = 'table',
-    )
+  )
 }}
-
 
 select
     aircraft_code,
-    model, 
+    model,
     "range"
-from
-    {{ source('demo_src', 'aircrafts') }}
+from {{ source('demo_src', 'aircrafts') }}

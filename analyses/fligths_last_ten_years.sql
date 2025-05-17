@@ -2,7 +2,7 @@
 {% set current_year = run_started_at | string | truncate(4, True, "") | int  %}
 {% set prev_year = current_year - 10 %}
 SELECT
-    count(flight_id) AS flight_count
+    count(flight_id) AS {{ adapter.quote('flight_count') }}
 FROM
     {{ref('fct_flights')}}
 WHERE

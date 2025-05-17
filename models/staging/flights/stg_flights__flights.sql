@@ -1,13 +1,11 @@
 {{
   config(
-    materialized = 'incremental',
-    incremental_stratagy = 'merge',
-    unique_key = ['flight_id', 'actual_departure']
+    materialized = 'table',
     )
 }}
 select
   "flight_id",
-  "flight_no",
+  "flight_no"::varchar(10) as "flight_no",
   "scheduled_departure",
   "scheduled_arrival",
   "departure_airport",
@@ -15,7 +13,8 @@ select
   "status",
   "aircraft_code",
   "actual_departure",
-  "actual_arrival"
+  "actual_arrival",
+  'Hi everyone' as "new_column"
 
 from {{ source('demo_src', 'flights') }}
 {% if is_incremental() %}
