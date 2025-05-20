@@ -9,6 +9,6 @@ select
   "book_date",
   "total_amount"
 from
-  {{ source('demo_src', 'bookings') }}
-  {{limit_data_dev(column_name='book_date', days=3000)}}
+  {{ source('demo_src', 'bookings') }} 
+  {{limit_data_dev(column_name='book_date')}} 
  

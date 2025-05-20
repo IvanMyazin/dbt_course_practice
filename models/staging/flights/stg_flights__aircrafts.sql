@@ -9,3 +9,4 @@ select
     model,
     "range"
 from {{ source('demo_src', 'aircrafts') }}
+

@@ -1,10 +1,11 @@
+---Макрос для конкатенации колонок
 {%- macro concat_columns(columns, delim = ', ') -%}
   {%- for column in columns -%}
     {{ column }} {% if not loop.last %} || '{{ delim }}' || {% endif %}
   {%- endfor -%}
 {% endmacro %}
 
-
+---Макрос для удаления старых таблиц и вьюх
 {% macro drop_old_relations(dryrun=False) %}
 {# находим все модели, seed, snapshot проекта dbt #}
 {% set current_models = [] %}
@@ -65,7 +66,7 @@ FROM MODELS_TO_DROP;
 
 {% endmacro %}
 
-
+---Макрос для вывода списка колонок таблицы
 {%- macro show_columns_relation(table_name) -%}
     {% set source_relation = load_relation(ref(table_name)) %}
     {% set columns = adapter.get_columns_in_relation(source_relation) %}
@@ -78,3 +79,15 @@ FROM MODELS_TO_DROP;
         {%- endif -%}
     {%- endfor -%}
 {%- endmacro -%}
+
+---Макрос для проверки зависимостей модели
+{% macro check_dependencies() %}
+  {% if execute %}
+    {% set deps = model.depends_on.nodes | list %}
+    {% set deps_count = deps | length %}
+
+    {% if deps_count > 1 %}
+      {% do log("⚠️ Модель '" ~ model.name ~ "' зависит от " ~ deps_count ~ " объектов!", info=True) %}
+    {% endif %}
+  {% endif %}
+{% endmacro %}

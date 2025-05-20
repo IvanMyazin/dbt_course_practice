@@ -2,6 +2,7 @@
     "dbt.perspectiveTheme": "Vintage",
     "terminal.integrated.cwd": "C:/Users/Myasi/dbt_workdir/dbt_course_practice",
     "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "terminal.integrated.defaultEncoding": "utf-8",
     "terminal.integrated.profiles.windows": {
         "Git Bash": {
             "path": "C:\\Program Files\\Git\\bin\\bash.exe",
