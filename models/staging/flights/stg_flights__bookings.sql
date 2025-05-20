@@ -1,6 +1,6 @@
 {{
   config(
-    materialized = 'incremental',
+    materialized = 'table',
     tags = ['bookings']
     )
 }}
@@ -10,3 +10,5 @@ select
   "total_amount"
 from
   {{ source('demo_src', 'bookings') }}
+  {{limit_data_dev(column_name='book_date', days=3000)}}
+ 
